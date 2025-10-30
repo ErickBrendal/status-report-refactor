@@ -19,50 +19,50 @@ const STATUS_CONFIG = {
 
 const REAL_DATA = {
   backlog: [
-    { nome: 'Demanda 1', bu: 'TI', goLive: '15/11/2025', observacao: 'Aguardando priorização', responsavel: 'Erick Almeida' },
-    { nome: 'Demanda 2', bu: 'Comercial', goLive: '20/11/2025', observacao: 'Backlog', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 3', bu: 'Automação', goLive: '25/11/2025', observacao: 'Aguardando definição de escopo', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 4', bu: 'Bens de consumo', goLive: '01/12/2025', observacao: 'Backlog', responsavel: 'Erick Almeida' },
-    { nome: 'Demanda 5', bu: 'Refrigeração', goLive: '05/12/2025', observacao: 'Aguardando priorização', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 6', bu: 'Financeiro', goLive: '10/12/2025', observacao: 'Backlog', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 7', bu: 'Logística', goLive: '15/12/2025', observacao: 'Aguardando priorização', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 1', bu: 'TI', goLive: '15/10/2025', observacao: 'Aguardando priorização', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 2', bu: 'Comercial', goLive: '20/10/2025', observacao: 'Backlog', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 3', bu: 'Automação', goLive: '25/10/2025', observacao: 'Aguardando definição de escopo', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 4', bu: 'Bens de consumo', goLive: '01/11/2025', observacao: 'Backlog', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 5', bu: 'Refrigeração', goLive: '05/11/2025', observacao: 'Aguardando priorização', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 6', bu: 'Financeiro', goLive: '10/11/2025', observacao: 'Backlog', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 7', bu: 'Logística', goLive: '15/11/2025', observacao: 'Aguardando priorização', responsavel: 'Erick Almeida' },
   ],
   refinamento: [
-    { nome: 'Demanda 8', bu: 'TI', goLive: '15/11/2025', observacao: 'Em refinamento', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 9', bu: 'Comercial', goLive: '20/11/2025', observacao: 'Refinamento em andamento', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 8', bu: 'TI', goLive: '15/10/2025', observacao: 'Em refinamento', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 9', bu: 'Comercial', goLive: '20/10/2025', observacao: 'Refinamento em andamento', responsavel: 'Erick Almeida' },
   ],
   estimativa: [
-    { nome: 'Demanda 10', bu: 'Automação', goLive: '25/11/2025', observacao: 'Aguardando estimativa', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 11', bu: 'Bens de consumo', goLive: '01/12/2025', observacao: 'Em estimativa', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 12', bu: 'Refrigeração', goLive: '05/12/2025', observacao: 'Estimativa em andamento', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 10', bu: 'Automação', goLive: '25/10/2025', observacao: 'Aguardando estimativa', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 11', bu: 'Bens de consumo', goLive: '01/11/2025', observacao: 'Em estimativa', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 12', bu: 'Refrigeração', goLive: '05/11/2025', observacao: 'Estimativa em andamento', responsavel: 'Erick Almeida' },
   ],
   aprovacao: [
-    { nome: 'Demanda 13', bu: 'Financeiro', goLive: '10/12/2025', observacao: 'Aguardando aprovação', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 14', bu: 'Logística', goLive: '15/12/2025', observacao: 'Em aprovação', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 15', bu: 'TI', goLive: '20/12/2025', observacao: 'Aprovação em andamento', responsavel: 'Erick Almeida' },
-    { nome: 'Demanda 16', bu: 'Comercial', goLive: '25/12/2025', observacao: 'Aguardando aprovação', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 17', bu: 'Automação', goLive: '30/12/2025', observacao: 'Em aprovação', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 18', bu: 'Bens de consumo', goLive: '05/01/2026', observacao: 'Aprovação em andamento', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 13', bu: 'Financeiro', goLive: '10/11/2025', observacao: 'Aguardando aprovação', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 14', bu: 'Logística', goLive: '15/11/2025', observacao: 'Em aprovação', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 15', bu: 'TI', goLive: '20/11/2025', observacao: 'Aprovação em andamento', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 16', bu: 'Comercial', goLive: '25/11/2025', observacao: 'Aguardando aprovação', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 17', bu: 'Automação', goLive: '30/11/2025', observacao: 'Em aprovação', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 18', bu: 'Bens de consumo', goLive: '05/12/2025', observacao: 'Aprovação em andamento', responsavel: 'Erick Almeida' },
   ],
   desenvolvimento: [
-    { nome: 'Demanda 19', bu: 'Refrigeração', goLive: '10/01/2026', observacao: 'Em desenvolvimento', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 20', bu: 'Financeiro', goLive: '15/01/2026', observacao: 'Desenvolvimento em andamento', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 21', bu: 'Logística', goLive: '20/01/2026', observacao: 'Em desenvolvimento', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 19', bu: 'Refrigeração', goLive: '10/12/2025', observacao: 'Em desenvolvimento', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 20', bu: 'Financeiro', goLive: '15/12/2025', observacao: 'Desenvolvimento em andamento', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 21', bu: 'Logística', goLive: '20/12/2025', observacao: 'Em desenvolvimento', responsavel: 'Erick Almeida' },
   ],
   homologacao: [
-    { nome: 'Demanda 22', bu: 'TI', goLive: '25/01/2026', observacao: 'Em homologação', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 23', bu: 'Comercial', goLive: '30/01/2026', observacao: 'Homologação em andamento', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 24', bu: 'Automação', goLive: '05/02/2026', observacao: 'Em homologação', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 22', bu: 'TI', goLive: '25/12/2025', observacao: 'Em homologação', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 23', bu: 'Comercial', goLive: '30/12/2025', observacao: 'Homologação em andamento', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 24', bu: 'Automação', goLive: '05/01/2026', observacao: 'Em homologação', responsavel: 'Erick Almeida' },
   ],
   deploy: [
-    { nome: 'Demanda 25', bu: 'Bens de consumo', goLive: '10/02/2026', observacao: 'Aguardando deploy', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 25', bu: 'Bens de consumo', goLive: '10/01/2026', observacao: 'Aguardando deploy', responsavel: 'Elder Rodrigues' },
   ],
   implementadas: [
-    { nome: 'Demanda 26', bu: 'Refrigeração', goLive: '15/02/2026', observacao: 'Implementado em 15/02', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 27', bu: 'Financeiro', goLive: '20/02/2026', observacao: 'Implementado em 20/02', responsavel: 'Erick Almeida' },
-    { nome: 'Demanda 28', bu: 'Logística', goLive: '25/02/2026', observacao: 'Implementado em 25/02', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 29', bu: 'TI', goLive: '01/03/2026', observacao: 'Implementado em 01/03', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 30', bu: 'Comercial', goLive: '05/03/2026', observacao: 'Implementado em 05/03', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 26', bu: 'Refrigeração', goLive: '15/01/2026', observacao: 'Implementado em 15/01', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 27', bu: 'Financeiro', goLive: '20/01/2026', observacao: 'Implementado em 20/01', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 28', bu: 'Logística', goLive: '25/01/2026', observacao: 'Implementado em 25/01', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 29', bu: 'TI', goLive: '01/02/2026', observacao: 'Implementado em 01/02', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 30', bu: 'Comercial', goLive: '05/02/2026', observacao: 'Implementado em 05/02', responsavel: 'Erick Almeida' },
   ],
   entregas: [
     { mes: 'Setembro', quantidade: 9 },
@@ -90,7 +90,6 @@ export default function Home() {
   });
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBU, setSelectedBU] = useState('Todas as BUs');
-  const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState<any[]>([]);
   const [modalTitle, setModalTitle] = useState('');
@@ -153,11 +152,15 @@ export default function Home() {
           }
 
           const statusKey = phaseMap[faseAtual];
+          const goLiveDate = row['Go Live'] || '';
+          const previsaoEtapa = row['Previsão Etapa'] || '';
+          const goLiveFormatted = `${goLiveDate}${previsaoEtapa ? ' - ' + previsaoEtapa : ''}`;
+
           if (statusKey && newData[statusKey]) {
             newData[statusKey].push({
               nome: row['Tópico'] || row['Nome da Demanda'] || '',
               bu: row['Área Solicitante'] || row['BU'] || '',
-              goLive: row['Go Live'] || '',
+              goLive: goLiveFormatted,
               observacao: row['Obs:'] || row['Observação'] || '',
               responsavel: row['Responsavel pela demanda'] || row['Responsável'] || 'Equipe CRM',
             });
@@ -180,18 +183,18 @@ export default function Home() {
 
   const downloadTemplate = () => {
     const wb = XLSX.utils.book_new();
-    const header = ['Tópico', 'Área Solicitante', 'Fase Atual', 'Go Live', 'Obs:', 'Responsavel pela demanda'];
     const dataRows = [
       {
         'Tópico': 'Exemplo: Implementação de Novo Fluxo',
         'Área Solicitante': 'Exemplo: Comercial',
         'Fase Atual': 'Backlog/Sem priorização',
+        'Previsão Etapa': 'Em planejamento',
         'Go Live': '15/11/2025',
         'Obs:': 'Exemplo de observação',
         'Responsavel pela demanda': 'Nome do Responsável',
       },
     ];
-    const ws = XLSX.utils.json_to_sheet(dataRows, { header });
+    const ws = XLSX.utils.json_to_sheet(dataRows);
     XLSX.utils.book_append_sheet(wb, ws, 'Status Report');
     XLSX.writeFile(wb, 'template_status_report.xlsx');
   };
@@ -207,8 +210,8 @@ export default function Home() {
     XLSX.writeFile(wb, `status_report_${new Date().toISOString().split('T')[0]}.xlsx`);
   };
 
-  const openModal = (phase: string | null, title: string) => {
-    if (phase && data[phase as keyof typeof data]) {
+  const openModal = (phase: string, title: string) => {
+    if (data[phase as keyof typeof data]) {
       setModalData(data[phase as keyof typeof data] as any[]);
       setModalTitle(title);
       setModalOpen(true);
@@ -226,29 +229,25 @@ export default function Home() {
   ];
 
   const getDisplayData = () => {
-    if (selectedPhase && data[selectedPhase as keyof typeof data]) {
-      return (data[selectedPhase as keyof typeof data] as any[]).filter(item => {
-        const matchesSearch = item.nome?.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                             item.bu?.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesBU = selectedBU === 'Todas as BUs' || item.bu === selectedBU;
-        return matchesSearch && matchesBU;
-      });
-    }
-    return Object.values(data)
-      .filter(item => Array.isArray(item))
-      .flat()
-      .filter(item => {
-        const matchesSearch = item.nome?.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                             item.bu?.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesBU = selectedBU === 'Todas as BUs' || item.bu === selectedBU;
-        return matchesSearch && matchesBU;
-      });
+    let allData: any[] = [];
+    Object.entries(data).forEach(([key, items]: [string, any]) => {
+      if (Array.isArray(items)) {
+        allData = allData.concat(items);
+      }
+    });
+
+    return allData.filter(item => {
+      const matchesSearch = item.nome?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                           item.bu?.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesBU = selectedBU === 'Todas as BUs' || item.bu === selectedBU;
+      return matchesSearch && matchesBU;
+    });
   };
 
   const uniqueBUs = Array.from(new Set(Object.values(data)
-    .filter(item => Array.isArray(item))
+    .filter((item: any) => Array.isArray(item))
     .flat()
-    .map(item => item.bu)));
+    .map((item: any) => item.bu)));
 
   const buDistribution = uniqueBUs.map((bu: string) => ({
     bu,
@@ -260,12 +259,21 @@ export default function Home() {
 
   const displayData = getDisplayData();
 
+  // Filter entregas - only those with real dates (not "Em planejamento")
+  const entregasReais = Object.values(data)
+    .filter((item: any) => Array.isArray(item))
+    .flat()
+    .filter((item: any) => {
+      const goLive = item.goLive || '';
+      return goLive && !goLive.toLowerCase().includes('em planejamento');
+    });
+
   // Group entregas by month
-  const entregasPorMes = {
-    'Setembro': (data.implementadas as any[]).filter((d: any) => d.goLive?.includes('09')),
-    'Outubro': (data.implementadas as any[]).filter((d: any) => d.goLive?.includes('10')),
-    'Novembro': (data.implementadas as any[]).filter((d: any) => d.goLive?.includes('11')),
-    'Dezembro': (data.implementadas as any[]).filter((d: any) => d.goLive?.includes('12')),
+  const entregasPorMes: { [key: string]: any[] } = {
+    'Setembro': entregasReais.filter((d: any) => d.goLive?.includes('/09/')),
+    'Outubro': entregasReais.filter((d: any) => d.goLive?.includes('/10/')),
+    'Novembro': entregasReais.filter((d: any) => d.goLive?.includes('/11/')),
+    'Dezembro': entregasReais.filter((d: any) => d.goLive?.includes('/12/')),
   };
 
   return (
@@ -330,18 +338,11 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {statusCards.map((card) => {
                 const count = (data[card.key as keyof typeof data] as any[])?.length || 0;
-                const isSelected = selectedPhase === card.key;
                 return (
                   <div
                     key={card.key}
-                    onClick={() => {
-                      openModal(card.key, `${card.icon} ${card.label}`);
-                    }}
-                    className={`p-4 rounded-lg cursor-pointer transition-all transform hover:scale-105 ${
-                      isSelected
-                        ? 'ring-2 ring-blue-600 shadow-lg'
-                        : 'shadow hover:shadow-md'
-                    }`}
+                    onClick={() => openModal(card.key, `${card.icon} ${card.label}`)}
+                    className="p-4 rounded-lg cursor-pointer transition-all transform hover:scale-105 shadow hover:shadow-md"
                     style={{
                       backgroundColor: STATUS_CONFIG[card.key as keyof typeof STATUS_CONFIG]?.bgColor,
                       borderTop: `4px solid ${STATUS_CONFIG[card.key as keyof typeof STATUS_CONFIG]?.color}`,
@@ -387,13 +388,13 @@ export default function Home() {
                 className="px-4 py-2 border border-gray-300 rounded-lg"
               >
                 <option>Todas as BUs</option>
-                {uniqueBUs.map(bu => <option key={bu}>{bu}</option>)}
+                {uniqueBUs.map((bu: string) => <option key={bu}>{bu}</option>)}
               </select>
             </div>
 
             {/* Table */}
             <Card className="p-6">
-              <h2 className="text-2xl font-bold mb-4">📋 {selectedPhase ? STATUS_CONFIG[selectedPhase as keyof typeof STATUS_CONFIG]?.label : 'Todas as Demandas'}</h2>
+              <h2 className="text-2xl font-bold mb-4">📋 Todas as Demandas</h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead className="bg-gray-100">
@@ -406,7 +407,7 @@ export default function Home() {
                     </tr>
                   </thead>
                   <tbody>
-                    {displayData.map((demanda, idx) => (
+                    {displayData.map((demanda: any, idx: number) => (
                       <tr key={idx} className="border-b hover:bg-gray-50">
                         <td className="p-3 font-medium">{demanda.nome}</td>
                         <td className="p-3"><span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">{demanda.bu}</span></td>
@@ -440,8 +441,7 @@ export default function Home() {
           <div className="space-y-6">
             {/* Entregas by Month */}
             {['Setembro', 'Outubro', 'Novembro', 'Dezembro'].map((mes: string) => {
-              const entregasDoMes = entregasPorMes[mes as keyof typeof entregasPorMes];
-              const mesNumero = ['Setembro', 'Outubro', 'Novembro', 'Dezembro'].indexOf(mes) + 9;
+              const entregasDoMes = entregasPorMes[mes];
               
               return (
                 <div key={mes}>
@@ -490,7 +490,7 @@ export default function Home() {
 
             {/* Team Members */}
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-              {data.equipe.map((membro: any, idx: number) => (
+              {(data.equipe as any[]).map((membro: any, idx: number) => (
                 <Card key={idx} className="overflow-hidden">
                   <div className="bg-blue-600 h-20 flex items-center justify-center">
                     <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-2xl font-bold text-blue-600">
@@ -575,7 +575,7 @@ export default function Home() {
             </div>
             <div className="p-6">
               <div className="space-y-4">
-                {modalData.map((item, idx) => (
+                {modalData.map((item: any, idx: number) => (
                   <div key={idx} className="border-l-4 border-blue-600 pl-4 py-2">
                     <p className="font-bold text-gray-800">{item.nome}</p>
                     <div className="mt-2 text-sm text-gray-600 space-y-1">
