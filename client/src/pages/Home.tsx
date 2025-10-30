@@ -454,17 +454,17 @@ export default function Home() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {entregasDoMes.length > 0 ? (
                       entregasDoMes.map((entrega: any, idx: number) => (
-                        <Card key={idx} className="p-4 border-l-4 border-blue-600">
-                          <p className="font-bold text-gray-800">{entrega.nome}</p>
+                        <Card key={`entrega-${entrega.nome}-${idx}`} className="p-4 border-l-4 border-blue-600">
+                          <p className="font-bold text-gray-800 text-sm">{entrega.nome}</p>
                           <div className="mt-3 space-y-2">
                             <div className="flex items-center gap-2">
-                              <span className="text-sm text-gray-600">📁 {entrega.bu}</span>
+                              <span className="text-xs text-gray-600">📁 {entrega.bu}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm text-gray-600">📅 {entrega.goLive}</span>
+                              <span className="text-xs text-gray-600">📅 {entrega.goLive}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm text-gray-600">✅</span>
+                              <span className="text-xs text-gray-600">✅</span>
                             </div>
                           </div>
                         </Card>
