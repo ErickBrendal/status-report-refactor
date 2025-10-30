@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Download, Upload, Zap, Rocket, Clipboard, Key } from 'lucide-react';
+import { Download, Upload, Zap, Rocket, Clipboard, Key, X } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
@@ -19,50 +19,50 @@ const STATUS_CONFIG = {
 
 const REAL_DATA = {
   backlog: [
-    { nome: 'Demanda 1', bu: 'TI', previsaoInicio: '01/11/2025', goLive: '15/11/2025', observacao: 'Aguardando priorização', responsavel: 'Erick Almeida' },
-    { nome: 'Demanda 2', bu: 'Comercial', previsaoInicio: '05/11/2025', goLive: '20/11/2025', observacao: 'Backlog', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 3', bu: 'Automação', previsaoInicio: '10/11/2025', goLive: '25/11/2025', observacao: 'Aguardando definição de escopo', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 4', bu: 'Bens de consumo', previsaoInicio: '15/11/2025', goLive: '01/12/2025', observacao: 'Backlog', responsavel: 'Erick Almeida' },
-    { nome: 'Demanda 5', bu: 'Refrigeração', previsaoInicio: '20/11/2025', goLive: '05/12/2025', observacao: 'Aguardando priorização', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 6', bu: 'Financeiro', previsaoInicio: '25/11/2025', goLive: '10/12/2025', observacao: 'Backlog', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 7', bu: 'Logística', previsaoInicio: '30/11/2025', goLive: '15/12/2025', observacao: 'Aguardando priorização', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 1', bu: 'TI', goLive: '15/11/2025', observacao: 'Aguardando priorização', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 2', bu: 'Comercial', goLive: '20/11/2025', observacao: 'Backlog', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 3', bu: 'Automação', goLive: '25/11/2025', observacao: 'Aguardando definição de escopo', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 4', bu: 'Bens de consumo', goLive: '01/12/2025', observacao: 'Backlog', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 5', bu: 'Refrigeração', goLive: '05/12/2025', observacao: 'Aguardando priorização', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 6', bu: 'Financeiro', goLive: '10/12/2025', observacao: 'Backlog', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 7', bu: 'Logística', goLive: '15/12/2025', observacao: 'Aguardando priorização', responsavel: 'Erick Almeida' },
   ],
   refinamento: [
-    { nome: 'Demanda 8', bu: 'TI', previsaoInicio: '01/11/2025', goLive: '15/11/2025', observacao: 'Em refinamento', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 9', bu: 'Comercial', previsaoInicio: '05/11/2025', goLive: '20/11/2025', observacao: 'Refinamento em andamento', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 8', bu: 'TI', goLive: '15/11/2025', observacao: 'Em refinamento', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 9', bu: 'Comercial', goLive: '20/11/2025', observacao: 'Refinamento em andamento', responsavel: 'Erick Almeida' },
   ],
   estimativa: [
-    { nome: 'Demanda 10', bu: 'Automação', previsaoInicio: '10/11/2025', goLive: '25/11/2025', observacao: 'Aguardando estimativa', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 11', bu: 'Bens de consumo', previsaoInicio: '15/11/2025', goLive: '01/12/2025', observacao: 'Em estimativa', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 12', bu: 'Refrigeração', previsaoInicio: '20/11/2025', goLive: '05/12/2025', observacao: 'Estimativa em andamento', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 10', bu: 'Automação', goLive: '25/11/2025', observacao: 'Aguardando estimativa', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 11', bu: 'Bens de consumo', goLive: '01/12/2025', observacao: 'Em estimativa', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 12', bu: 'Refrigeração', goLive: '05/12/2025', observacao: 'Estimativa em andamento', responsavel: 'Erick Almeida' },
   ],
   aprovacao: [
-    { nome: 'Demanda 13', bu: 'Financeiro', previsaoInicio: '25/11/2025', goLive: '10/12/2025', observacao: 'Aguardando aprovação', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 14', bu: 'Logística', previsaoInicio: '30/11/2025', goLive: '15/12/2025', observacao: 'Em aprovação', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 15', bu: 'TI', previsaoInicio: '01/12/2025', goLive: '20/12/2025', observacao: 'Aprovação em andamento', responsavel: 'Erick Almeida' },
-    { nome: 'Demanda 16', bu: 'Comercial', previsaoInicio: '05/12/2025', goLive: '25/12/2025', observacao: 'Aguardando aprovação', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 17', bu: 'Automação', previsaoInicio: '10/12/2025', goLive: '30/12/2025', observacao: 'Em aprovação', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 18', bu: 'Bens de consumo', previsaoInicio: '15/12/2025', goLive: '05/01/2026', observacao: 'Aprovação em andamento', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 13', bu: 'Financeiro', goLive: '10/12/2025', observacao: 'Aguardando aprovação', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 14', bu: 'Logística', goLive: '15/12/2025', observacao: 'Em aprovação', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 15', bu: 'TI', goLive: '20/12/2025', observacao: 'Aprovação em andamento', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 16', bu: 'Comercial', goLive: '25/12/2025', observacao: 'Aguardando aprovação', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 17', bu: 'Automação', goLive: '30/12/2025', observacao: 'Em aprovação', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 18', bu: 'Bens de consumo', goLive: '05/01/2026', observacao: 'Aprovação em andamento', responsavel: 'Erick Almeida' },
   ],
   desenvolvimento: [
-    { nome: 'Demanda 19', bu: 'Refrigeração', previsaoInicio: '20/12/2025', goLive: '10/01/2026', observacao: 'Em desenvolvimento', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 20', bu: 'Financeiro', previsaoInicio: '25/12/2025', goLive: '15/01/2026', observacao: 'Desenvolvimento em andamento', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 21', bu: 'Logística', previsaoInicio: '30/12/2025', goLive: '20/01/2026', observacao: 'Em desenvolvimento', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 19', bu: 'Refrigeração', goLive: '10/01/2026', observacao: 'Em desenvolvimento', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 20', bu: 'Financeiro', goLive: '15/01/2026', observacao: 'Desenvolvimento em andamento', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 21', bu: 'Logística', goLive: '20/01/2026', observacao: 'Em desenvolvimento', responsavel: 'Erick Almeida' },
   ],
   homologacao: [
-    { nome: 'Demanda 22', bu: 'TI', previsaoInicio: '01/01/2026', goLive: '25/01/2026', observacao: 'Em homologação', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 23', bu: 'Comercial', previsaoInicio: '05/01/2026', goLive: '30/01/2026', observacao: 'Homologação em andamento', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 24', bu: 'Automação', previsaoInicio: '10/01/2026', goLive: '05/02/2026', observacao: 'Em homologação', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 22', bu: 'TI', goLive: '25/01/2026', observacao: 'Em homologação', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 23', bu: 'Comercial', goLive: '30/01/2026', observacao: 'Homologação em andamento', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 24', bu: 'Automação', goLive: '05/02/2026', observacao: 'Em homologação', responsavel: 'Erick Almeida' },
   ],
   deploy: [
-    { nome: 'Demanda 25', bu: 'Bens de consumo', previsaoInicio: '15/01/2026', goLive: '10/02/2026', observacao: 'Aguardando deploy', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 25', bu: 'Bens de consumo', goLive: '10/02/2026', observacao: 'Aguardando deploy', responsavel: 'Elder Rodrigues' },
   ],
   implementadas: [
-    { nome: 'Demanda 26', bu: 'Refrigeração', previsaoInicio: '20/01/2026', goLive: '15/02/2026', observacao: 'Implementado em 15/02', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 27', bu: 'Financeiro', previsaoInicio: '25/01/2026', goLive: '20/02/2026', observacao: 'Implementado em 20/02', responsavel: 'Erick Almeida' },
-    { nome: 'Demanda 28', bu: 'Logística', previsaoInicio: '30/01/2026', goLive: '25/02/2026', observacao: 'Implementado em 25/02', responsavel: 'Elder Rodrigues' },
-    { nome: 'Demanda 29', bu: 'TI', previsaoInicio: '05/02/2026', goLive: '01/03/2026', observacao: 'Implementado em 01/03', responsavel: 'Marcio Souza' },
-    { nome: 'Demanda 30', bu: 'Comercial', previsaoInicio: '10/02/2026', goLive: '05/03/2026', observacao: 'Implementado em 05/03', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 26', bu: 'Refrigeração', goLive: '15/02/2026', observacao: 'Implementado em 15/02', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 27', bu: 'Financeiro', goLive: '20/02/2026', observacao: 'Implementado em 20/02', responsavel: 'Erick Almeida' },
+    { nome: 'Demanda 28', bu: 'Logística', goLive: '25/02/2026', observacao: 'Implementado em 25/02', responsavel: 'Elder Rodrigues' },
+    { nome: 'Demanda 29', bu: 'TI', goLive: '01/03/2026', observacao: 'Implementado em 01/03', responsavel: 'Marcio Souza' },
+    { nome: 'Demanda 30', bu: 'Comercial', goLive: '05/03/2026', observacao: 'Implementado em 05/03', responsavel: 'Erick Almeida' },
   ],
   entregas: [
     { mes: 'Setembro', quantidade: 9 },
@@ -91,6 +91,9 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBU, setSelectedBU] = useState('Todas as BUs');
   const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalData, setModalData] = useState<any[]>([]);
+  const [modalTitle, setModalTitle] = useState('');
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -154,7 +157,6 @@ export default function Home() {
             newData[statusKey].push({
               nome: row['Tópico'] || row['Nome da Demanda'] || '',
               bu: row['Área Solicitante'] || row['BU'] || '',
-              previsaoInicio: row['Previsão Etapa'] || row['Previsão Início'] || '',
               goLive: row['Go Live'] || '',
               observacao: row['Obs:'] || row['Observação'] || '',
               responsavel: row['Responsavel pela demanda'] || row['Responsável'] || 'Equipe CRM',
@@ -178,13 +180,12 @@ export default function Home() {
 
   const downloadTemplate = () => {
     const wb = XLSX.utils.book_new();
-    const header = ['Tópico', 'Área Solicitante', 'Fase Atual', 'Previsão Etapa', 'Go Live', 'Obs:', 'Responsavel pela demanda'];
+    const header = ['Tópico', 'Área Solicitante', 'Fase Atual', 'Go Live', 'Obs:', 'Responsavel pela demanda'];
     const dataRows = [
       {
         'Tópico': 'Exemplo: Implementação de Novo Fluxo',
         'Área Solicitante': 'Exemplo: Comercial',
         'Fase Atual': 'Backlog/Sem priorização',
-        'Previsão Etapa': '01/11/2025',
         'Go Live': '15/11/2025',
         'Obs:': 'Exemplo de observação',
         'Responsavel pela demanda': 'Nome do Responsável',
@@ -204,6 +205,14 @@ export default function Home() {
       }
     });
     XLSX.writeFile(wb, `status_report_${new Date().toISOString().split('T')[0]}.xlsx`);
+  };
+
+  const openModal = (phase: string | null, title: string) => {
+    if (phase && data[phase as keyof typeof data]) {
+      setModalData(data[phase as keyof typeof data] as any[]);
+      setModalTitle(title);
+      setModalOpen(true);
+    }
   };
 
   const statusCards = [
@@ -241,15 +250,23 @@ export default function Home() {
     .flat()
     .map(item => item.bu)));
 
-  const buDistribution = uniqueBUs.map(bu => ({
+  const buDistribution = uniqueBUs.map((bu: string) => ({
     bu,
     quantidade: Object.values(data)
-      .filter(item => Array.isArray(item))
+      .filter((item: any) => Array.isArray(item))
       .flat()
-      .filter(item => item.bu === bu).length,
+      .filter((item: any) => item.bu === bu).length,
   }));
 
   const displayData = getDisplayData();
+
+  // Group entregas by month
+  const entregasPorMes = {
+    'Setembro': (data.implementadas as any[]).filter((d: any) => d.goLive?.includes('09')),
+    'Outubro': (data.implementadas as any[]).filter((d: any) => d.goLive?.includes('10')),
+    'Novembro': (data.implementadas as any[]).filter((d: any) => d.goLive?.includes('11')),
+    'Dezembro': (data.implementadas as any[]).filter((d: any) => d.goLive?.includes('12')),
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -317,7 +334,9 @@ export default function Home() {
                 return (
                   <div
                     key={card.key}
-                    onClick={() => setSelectedPhase(isSelected ? null : card.key)}
+                    onClick={() => {
+                      openModal(card.key, `${card.icon} ${card.label}`);
+                    }}
                     className={`p-4 rounded-lg cursor-pointer transition-all transform hover:scale-105 ${
                       isSelected
                         ? 'ring-2 ring-blue-600 shadow-lg'
@@ -345,7 +364,10 @@ export default function Home() {
             </div>
 
             {/* Fast Tracking Section */}
-            <Card className="p-6 bg-blue-50 border-l-4 border-blue-600">
+            <Card
+              onClick={() => openModal('backlog', '⚡ Fast Tracking sem priorização')}
+              className="p-6 bg-blue-50 border-l-4 border-blue-600 cursor-pointer hover:shadow-lg transition-all"
+            >
               <h3 className="text-lg font-bold text-gray-800">⚡ Fast Tracking sem priorização</h3>
               <p className="text-gray-600 mt-1">Demandas em backlog que ainda não foram priorizadas para desenvolvimento</p>
               <p className="text-right text-2xl font-bold text-blue-600 mt-4">{(data.backlog as any[])?.length} demandas</p>
@@ -378,7 +400,6 @@ export default function Home() {
                     <tr>
                       <th className="p-3 text-left">Demanda</th>
                       <th className="p-3 text-left">Área Solicitante</th>
-                      <th className="p-3 text-left">Previsão</th>
                       <th className="p-3 text-left">Go Live</th>
                       <th className="p-3 text-left">Observação</th>
                       <th className="p-3 text-left">Responsável</th>
@@ -389,7 +410,6 @@ export default function Home() {
                       <tr key={idx} className="border-b hover:bg-gray-50">
                         <td className="p-3 font-medium">{demanda.nome}</td>
                         <td className="p-3"><span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">{demanda.bu}</span></td>
-                        <td className="p-3">{demanda.previsaoInicio}</td>
                         <td className="p-3">{demanda.goLive}</td>
                         <td className="p-3 text-gray-600">{demanda.observacao}</td>
                         <td className="p-3"><span className="bg-gray-100 px-2 py-1 rounded text-xs">EC {demanda.responsavel?.split(' ')[0] || 'CRM'}</span></td>
@@ -418,46 +438,46 @@ export default function Home() {
 
         {activeTab === 'entregas' && (
           <div className="space-y-6">
-            {/* Entregas Summary */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Card className="p-6 bg-blue-50 border-t-4 border-blue-600">
-                <p className="text-4xl font-bold text-blue-600">9</p>
-                <p className="text-gray-600 mt-2">Entregas Setembro</p>
-              </Card>
-              <Card className="p-6 bg-green-50 border-t-4 border-green-600">
-                <p className="text-4xl font-bold text-green-600">8</p>
-                <p className="text-gray-600 mt-2">Entregas Outubro</p>
-              </Card>
-              <Card className="p-6 bg-purple-50 border-t-4 border-purple-600">
-                <p className="text-4xl font-bold text-purple-600">9</p>
-                <p className="text-gray-600 mt-2">Áreas Atendidas</p>
-              </Card>
-            </div>
-
-            {/* Entregas Details */}
-            <Card className="p-6">
-              <h2 className="text-2xl font-bold mb-6">📋 Setembro 2025 - Entregas Confirmadas</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {[
-                  { titulo: 'Limitar parcelas pagamento', bu: 'Fiscal', data: '02/09/2025' },
-                  { titulo: 'Ajuste carga produtos', bu: 'Bens Consumo', data: '04/09/2025' },
-                  { titulo: 'PDF número cotação/pedido', bu: 'Bens Consumo', data: '04/09/2025' },
-                  { titulo: 'Relatórios Representantes', bu: 'Bens Consumo', data: '04/09/2025' },
-                  { titulo: 'Notificação Contas Paradas – Vendedor', bu: 'TI-Diretoria', data: '11/09/2025' },
-                  { titulo: 'Storage – Comissões', bu: 'TI-CRM', data: '19/09/2025' },
-                  { titulo: 'Botão Antecipação – Coleta ZD', bu: 'Comercial', data: '23/09/2025' },
-                  { titulo: 'Email Layout Representante', bu: 'Bens Consumo', data: '04/09/2025' },
-                  { titulo: 'Forecast Customizado', bu: 'Ar & Eletro', data: '30/09/2025' },
-                ].map((item, idx) => (
-                  <Card key={idx} className="p-4 border-l-4 border-blue-600">
-                    <p className="font-bold text-gray-800">{item.titulo}</p>
-                    <p className="text-sm text-gray-600 mt-2">📁 {item.bu}</p>
-                    <p className="text-sm text-gray-600">📅 {item.data}</p>
-                    <p className="text-right mt-3">✅</p>
-                  </Card>
-                ))}
-              </div>
-            </Card>
+            {/* Entregas by Month */}
+            {['Setembro', 'Outubro', 'Novembro', 'Dezembro'].map((mes: string) => {
+              const entregasDoMes = entregasPorMes[mes as keyof typeof entregasPorMes];
+              const mesNumero = ['Setembro', 'Outubro', 'Novembro', 'Dezembro'].indexOf(mes) + 9;
+              
+              return (
+                <div key={mes}>
+                  <h2 className="text-2xl font-bold mb-4">
+                    <span className="inline-flex items-center justify-center w-10 h-10 bg-blue-600 text-white rounded-full mr-3">
+                      {entregasDoMes.length}
+                    </span>
+                    {mes} 2025 - Entregas Confirmadas
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {entregasDoMes.length > 0 ? (
+                      entregasDoMes.map((entrega: any, idx: number) => (
+                        <Card key={idx} className="p-4 border-l-4 border-blue-600">
+                          <p className="font-bold text-gray-800">{entrega.nome}</p>
+                          <div className="mt-3 space-y-2">
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm text-gray-600">📁 {entrega.bu}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm text-gray-600">📅 {entrega.goLive}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm text-gray-600">✅</span>
+                            </div>
+                          </div>
+                        </Card>
+                      ))
+                    ) : (
+                      <Card className="p-4 col-span-3 text-center text-gray-500">
+                        Nenhuma entrega confirmada para {mes}
+                      </Card>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
 
@@ -536,6 +556,38 @@ export default function Home() {
           <Card className="p-6 bg-yellow-50 border-l-4 border-yellow-500">
             <p className="text-lg font-bold text-yellow-800">⚠️ Observação Importante</p>
             <p className="text-gray-700 mt-2">Verifique regularmente o status das demandas e mantenha a comunicação com a equipe CRM para garantir o cumprimento dos prazos.</p>
+          </Card>
+        </div>
+      )}
+
+      {/* Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <Card className="w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white p-6 border-b flex justify-between items-center">
+              <h2 className="text-2xl font-bold">{modalTitle}</h2>
+              <button
+                onClick={() => setModalOpen(false)}
+                className="p-2 hover:bg-gray-100 rounded-lg"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="p-6">
+              <div className="space-y-4">
+                {modalData.map((item, idx) => (
+                  <div key={idx} className="border-l-4 border-blue-600 pl-4 py-2">
+                    <p className="font-bold text-gray-800">{item.nome}</p>
+                    <div className="mt-2 text-sm text-gray-600 space-y-1">
+                      <p>📁 <strong>BU:</strong> {item.bu}</p>
+                      <p>📅 <strong>Go Live:</strong> {item.goLive}</p>
+                      <p>💬 <strong>Observação:</strong> {item.observacao}</p>
+                      <p>👤 <strong>Responsável:</strong> {item.responsavel}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </Card>
         </div>
       )}
