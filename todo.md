@@ -13,6 +13,17 @@
 - [x] Persistência de dados no localStorage
 - [x] Responsividade e design visual
 
+## Melhorias Solicitadas
+
+- [ ] Adicionar cards de status com clique interativo (Refinamento, Estimativa, Aprovação, Desenvolvimento, Homologação, Deploy, Implementadas)
+- [ ] Implementar comportamento dinâmico: ao clicar em um card, atualizar a tabela com os dados daquela fase
+- [ ] Melhorar visual da aba "Entregas Previstas" com cards de entregas confirmadas
+- [ ] Melhorar visual da aba "Equipe CRM" com cards de perfil de membros
+- [ ] Adicionar seção "Serviços Disponíveis" com cards informativos
+- [ ] Adicionar seção de "Observação Importante" com destaque visual
+- [ ] Implementar gráfico de distribuição por Área Solicitante
+- [ ] Melhorar layout geral com mais espaçamento e sombras
+
 ## Bugs Conhecidos
 
 - Nenhum no momento

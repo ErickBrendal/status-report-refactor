@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Download, Upload } from 'lucide-react';
+import { Download, Upload, Zap, Rocket, Clipboard, Key } from 'lucide-react';
 import * as XLSX from 'xlsx';
-import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const STATUS_CONFIG = {
-  backlog: { label: 'Backlog/Sem priorização', color: '#9CA3AF' },
-  refinamento: { label: 'Refinamento', color: '#3B82F6' },
-  estimativa: { label: 'Estimativa', color: '#8B5CF6' },
-  aprovacao: { label: 'Aprovação', color: '#F97316' },
-  desenvolvimento: { label: 'Desenvolvimento', color: '#FBBF24' },
-  homologacao: { label: 'Homologação', color: '#10B981' },
-  deploy: { label: 'Deploy', color: '#06B6D4' },
-  implementadas: { label: 'Implementadas', color: '#10B981' },
+  backlog: { label: 'Backlog/Sem priorização', color: '#9CA3AF', bgColor: '#F3F4F6' },
+  refinamento: { label: 'Refinamento', color: '#3B82F6', bgColor: '#EFF6FF' },
+  estimativa: { label: 'Estimativa', color: '#8B5CF6', bgColor: '#FAF5FF' },
+  aprovacao: { label: 'Aprovação', color: '#F97316', bgColor: '#FEF3C7' },
+  desenvolvimento: { label: 'Desenvolvimento', color: '#FBBF24', bgColor: '#FFFBEB' },
+  homologacao: { label: 'Homologação', color: '#10B981', bgColor: '#F0FDF4' },
+  deploy: { label: 'Deploy', color: '#06B6D4', bgColor: '#ECFDF5' },
+  implementadas: { label: 'Implementadas', color: '#059669', bgColor: '#F0FDF4' },
 };
 
 const REAL_DATA = {
@@ -65,15 +65,17 @@ const REAL_DATA = {
     { nome: 'Demanda 30', bu: 'Comercial', previsaoInicio: '10/02/2026', goLive: '05/03/2026', observacao: 'Implementado em 05/03', responsavel: 'Erick Almeida' },
   ],
   entregas: [
-    { mes: 'Setembro', quantidade: 5 },
+    { mes: 'Setembro', quantidade: 9 },
     { mes: 'Outubro', quantidade: 8 },
     { mes: 'Novembro', quantidade: 12 },
     { mes: 'Dezembro', quantidade: 10 },
   ],
   equipe: [
-    { nome: 'Erick Almeida', cargo: 'Product Owner', email: 'erick.almeida@elgin.com' },
-    { nome: 'Marcio Souza', cargo: 'Tech Lead', email: 'marcio.souza@elgin.com' },
-    { nome: 'Elder Rodrigues', cargo: 'Developer', email: 'elder.rodrigues@elgin.com' },
+    { nome: 'Carlos Almeida', cargo: 'CRM Manager', email: 'carlos.almeida@elgin.com.br', inicial: 'C' },
+    { nome: 'Erick Almeida', cargo: 'CRM Specialist', email: 'erick.almeida@elgin.com.br', inicial: 'E' },
+    { nome: 'Felipe Nascimento', cargo: 'CRM Developer', email: 'felipe.nascimento@elgin.com.br', inicial: 'F' },
+    { nome: 'Elder Guerra', cargo: 'CRM Analyst', email: 'elder.guerra@elgin.com.br', inicial: 'E' },
+    { nome: 'Marcio Souza', cargo: 'Valtech Consultant', email: 'marcio.souza@valtech.com', inicial: 'M' },
   ],
 };
 
@@ -88,6 +90,7 @@ export default function Home() {
   });
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedBU, setSelectedBU] = useState('Todas as BUs');
+  const [selectedPhase, setSelectedPhase] = useState<string | null>(null);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -203,26 +206,50 @@ export default function Home() {
     XLSX.writeFile(wb, `status_report_${new Date().toISOString().split('T')[0]}.xlsx`);
   };
 
-  const chartData = Object.entries(STATUS_CONFIG).map(([key, config]) => ({
-    name: config.label,
-    value: (data[key as keyof typeof data] as any[])?.length || 0,
-    color: config.color,
-  }));
+  const statusCards = [
+    { key: 'refinamento', label: 'Refinamento', icon: '🔍' },
+    { key: 'estimativa', label: 'Estimativa', icon: '📊' },
+    { key: 'aprovacao', label: 'Aprovação', icon: '✅' },
+    { key: 'desenvolvimento', label: 'Desenvolvimento', icon: '⚙️' },
+    { key: 'homologacao', label: 'Homologação', icon: '🧪' },
+    { key: 'deploy', label: 'Deploy', icon: '🚀' },
+    { key: 'implementadas', label: 'Implementadas', icon: '✨' },
+  ];
 
-  const allDemandas = Object.values(data)
-    .filter(item => Array.isArray(item))
-    .flat()
-    .filter(item => {
-      const matchesSearch = item.nome?.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                           item.bu?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesBU = selectedBU === 'Todas as BUs' || item.bu === selectedBU;
-      return matchesSearch && matchesBU;
-    });
+  const getDisplayData = () => {
+    if (selectedPhase && data[selectedPhase as keyof typeof data]) {
+      return (data[selectedPhase as keyof typeof data] as any[]).filter(item => {
+        const matchesSearch = item.nome?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                             item.bu?.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesBU = selectedBU === 'Todas as BUs' || item.bu === selectedBU;
+        return matchesSearch && matchesBU;
+      });
+    }
+    return Object.values(data)
+      .filter(item => Array.isArray(item))
+      .flat()
+      .filter(item => {
+        const matchesSearch = item.nome?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                             item.bu?.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesBU = selectedBU === 'Todas as BUs' || item.bu === selectedBU;
+        return matchesSearch && matchesBU;
+      });
+  };
 
   const uniqueBUs = Array.from(new Set(Object.values(data)
     .filter(item => Array.isArray(item))
     .flat()
     .map(item => item.bu)));
+
+  const buDistribution = uniqueBUs.map(bu => ({
+    bu,
+    quantidade: Object.values(data)
+      .filter(item => Array.isArray(item))
+      .flat()
+      .filter(item => item.bu === bu).length,
+  }));
+
+  const displayData = getDisplayData();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -234,7 +261,7 @@ export default function Home() {
         <div className="mt-6 bg-blue-500 rounded-lg p-4 w-fit">
           <p className="text-sm text-blue-100">Data do Relatório</p>
           <p className="text-2xl font-bold">{lastUpdate}</p>
-          <p className="text-sm text-blue-100 mt-1">📈 30 demandas ativas</p>
+          <p className="text-sm text-blue-100 mt-1">📊 30 demandas ativas</p>
         </div>
       </div>
 
@@ -282,6 +309,48 @@ export default function Home() {
       <div className="p-8">
         {activeTab === 'status' && (
           <div className="space-y-6">
+            {/* Status Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {statusCards.map((card) => {
+                const count = (data[card.key as keyof typeof data] as any[])?.length || 0;
+                const isSelected = selectedPhase === card.key;
+                return (
+                  <div
+                    key={card.key}
+                    onClick={() => setSelectedPhase(isSelected ? null : card.key)}
+                    className={`p-4 rounded-lg cursor-pointer transition-all transform hover:scale-105 ${
+                      isSelected
+                        ? 'ring-2 ring-blue-600 shadow-lg'
+                        : 'shadow hover:shadow-md'
+                    }`}
+                    style={{
+                      backgroundColor: STATUS_CONFIG[card.key as keyof typeof STATUS_CONFIG]?.bgColor,
+                      borderTop: `4px solid ${STATUS_CONFIG[card.key as keyof typeof STATUS_CONFIG]?.color}`,
+                    }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-gray-600">
+                          {card.icon} {card.label}
+                        </p>
+                        <p className="text-3xl font-bold mt-2" style={{ color: STATUS_CONFIG[card.key as keyof typeof STATUS_CONFIG]?.color }}>
+                          {count}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-2">Clique para detalhes</p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Fast Tracking Section */}
+            <Card className="p-6 bg-blue-50 border-l-4 border-blue-600">
+              <h3 className="text-lg font-bold text-gray-800">⚡ Fast Tracking sem priorização</h3>
+              <p className="text-gray-600 mt-1">Demandas em backlog que ainda não foram priorizadas para desenvolvimento</p>
+              <p className="text-right text-2xl font-bold text-blue-600 mt-4">{(data.backlog as any[])?.length} demandas</p>
+            </Card>
+
             {/* Filters */}
             <div className="flex gap-4">
               <Input
@@ -300,31 +369,15 @@ export default function Home() {
               </select>
             </div>
 
-            {/* Chart */}
-            <Card className="p-6">
-              <h2 className="text-2xl font-bold mb-6">📊 Distribuição por Status</h2>
-              <ResponsiveContainer width="100%" height={400}>
-                <PieChart>
-                  <Pie data={chartData} cx="50%" cy="50%" labelLine={false} label={({ name, value }) => `${name}: ${value}`} outerRadius={120} fill="#8884d8" dataKey="value">
-                    {chartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </Card>
-
             {/* Table */}
             <Card className="p-6">
-              <h2 className="text-2xl font-bold mb-4">📋 Demandas</h2>
+              <h2 className="text-2xl font-bold mb-4">📋 {selectedPhase ? STATUS_CONFIG[selectedPhase as keyof typeof STATUS_CONFIG]?.label : 'Todas as Demandas'}</h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead className="bg-gray-100">
                     <tr>
                       <th className="p-3 text-left">Demanda</th>
-                      <th className="p-3 text-left">BU</th>
+                      <th className="p-3 text-left">Área Solicitante</th>
                       <th className="p-3 text-left">Previsão</th>
                       <th className="p-3 text-left">Go Live</th>
                       <th className="p-3 text-left">Observação</th>
@@ -332,54 +385,160 @@ export default function Home() {
                     </tr>
                   </thead>
                   <tbody>
-                    {allDemandas.map((demanda, idx) => (
+                    {displayData.map((demanda, idx) => (
                       <tr key={idx} className="border-b hover:bg-gray-50">
-                        <td className="p-3">{demanda.nome}</td>
-                        <td className="p-3">{demanda.bu}</td>
+                        <td className="p-3 font-medium">{demanda.nome}</td>
+                        <td className="p-3"><span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">{demanda.bu}</span></td>
                         <td className="p-3">{demanda.previsaoInicio}</td>
                         <td className="p-3">{demanda.goLive}</td>
-                        <td className="p-3">{demanda.observacao}</td>
-                        <td className="p-3">{demanda.responsavel}</td>
+                        <td className="p-3 text-gray-600">{demanda.observacao}</td>
+                        <td className="p-3"><span className="bg-gray-100 px-2 py-1 rounded text-xs">EC {demanda.responsavel?.split(' ')[0] || 'CRM'}</span></td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
             </Card>
+
+            {/* Distribution Chart */}
+            <Card className="p-6">
+              <h2 className="text-2xl font-bold mb-6">📊 Distribuição por Área Solicitante</h2>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={buDistribution}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="bu" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="quantidade" fill="#3B82F6" />
+                </BarChart>
+              </ResponsiveContainer>
+            </Card>
           </div>
         )}
 
         {activeTab === 'entregas' && (
-          <Card className="p-6">
-            <h2 className="text-2xl font-bold mb-6">📅 Entregas Previstas Salesforce</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie data={data.entregas} cx="50%" cy="50%" labelLine={false} label={({ mes, quantidade }) => `${mes}: ${quantidade}`} outerRadius={100} fill="#8884d8" dataKey="quantidade">
-                  {data.entregas.map((_: any, index: number) => (
-                    <Cell key={`cell-${index}`} fill={['#3B82F6', '#10B981', '#F97316', '#8B5CF6'][index % 4]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-          </Card>
+          <div className="space-y-6">
+            {/* Entregas Summary */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card className="p-6 bg-blue-50 border-t-4 border-blue-600">
+                <p className="text-4xl font-bold text-blue-600">9</p>
+                <p className="text-gray-600 mt-2">Entregas Setembro</p>
+              </Card>
+              <Card className="p-6 bg-green-50 border-t-4 border-green-600">
+                <p className="text-4xl font-bold text-green-600">8</p>
+                <p className="text-gray-600 mt-2">Entregas Outubro</p>
+              </Card>
+              <Card className="p-6 bg-purple-50 border-t-4 border-purple-600">
+                <p className="text-4xl font-bold text-purple-600">9</p>
+                <p className="text-gray-600 mt-2">Áreas Atendidas</p>
+              </Card>
+            </div>
+
+            {/* Entregas Details */}
+            <Card className="p-6">
+              <h2 className="text-2xl font-bold mb-6">📋 Setembro 2025 - Entregas Confirmadas</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[
+                  { titulo: 'Limitar parcelas pagamento', bu: 'Fiscal', data: '02/09/2025' },
+                  { titulo: 'Ajuste carga produtos', bu: 'Bens Consumo', data: '04/09/2025' },
+                  { titulo: 'PDF número cotação/pedido', bu: 'Bens Consumo', data: '04/09/2025' },
+                  { titulo: 'Relatórios Representantes', bu: 'Bens Consumo', data: '04/09/2025' },
+                  { titulo: 'Notificação Contas Paradas – Vendedor', bu: 'TI-Diretoria', data: '11/09/2025' },
+                  { titulo: 'Storage – Comissões', bu: 'TI-CRM', data: '19/09/2025' },
+                  { titulo: 'Botão Antecipação – Coleta ZD', bu: 'Comercial', data: '23/09/2025' },
+                  { titulo: 'Email Layout Representante', bu: 'Bens Consumo', data: '04/09/2025' },
+                  { titulo: 'Forecast Customizado', bu: 'Ar & Eletro', data: '30/09/2025' },
+                ].map((item, idx) => (
+                  <Card key={idx} className="p-4 border-l-4 border-blue-600">
+                    <p className="font-bold text-gray-800">{item.titulo}</p>
+                    <p className="text-sm text-gray-600 mt-2">📁 {item.bu}</p>
+                    <p className="text-sm text-gray-600">📅 {item.data}</p>
+                    <p className="text-right mt-3">✅</p>
+                  </Card>
+                ))}
+              </div>
+            </Card>
+          </div>
         )}
 
         {activeTab === 'equipe' && (
-          <Card className="p-6">
-            <h2 className="text-2xl font-bold mb-6">👥 Equipe CRM</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="space-y-6">
+            {/* Team Message */}
+            <Card className="p-6 bg-blue-600 text-white rounded-lg">
+              <p className="text-lg">Estamos aqui para apoiar você em cada etapa da sua jornada digital</p>
+            </Card>
+
+            {/* Team Members */}
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
               {data.equipe.map((membro: any, idx: number) => (
-                <div key={idx} className="border rounded-lg p-4">
-                  <p className="font-bold text-lg">{membro.nome}</p>
-                  <p className="text-gray-600">{membro.cargo}</p>
-                  <p className="text-sm text-blue-600 mt-2">{membro.email}</p>
-                </div>
+                <Card key={idx} className="overflow-hidden">
+                  <div className="bg-blue-600 h-20 flex items-center justify-center">
+                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-2xl font-bold text-blue-600">
+                      {membro.inicial}
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <p className="font-bold text-gray-800">{membro.nome}</p>
+                    <p className="text-sm text-gray-600">{membro.cargo}</p>
+                    <p className="text-sm text-blue-600 mt-2">✉️ {membro.email}</p>
+                  </div>
+                </Card>
               ))}
             </div>
-          </Card>
+
+            {/* Services */}
+            <div>
+              <h2 className="text-2xl font-bold mb-4">🔧 Serviços Disponíveis</h2>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <Card className="p-6 border-t-4 border-yellow-500 bg-yellow-50">
+                  <Zap className="w-8 h-8 text-yellow-500 mb-2" />
+                  <p className="font-bold">Incidentes</p>
+                  <p className="text-sm text-gray-600 mt-2">Resolvidos com agilidade</p>
+                </Card>
+                <Card className="p-6 border-t-4 border-blue-500 bg-blue-50">
+                  <Rocket className="w-8 h-8 text-blue-500 mb-2" />
+                  <p className="font-bold">Fast Tracking</p>
+                  <p className="text-sm text-gray-600 mt-2">Melhorias rápidas</p>
+                </Card>
+                <Card className="p-6 border-t-4 border-purple-500 bg-purple-50">
+                  <Clipboard className="w-8 h-8 text-purple-500 mb-2" />
+                  <p className="font-bold">Projetos</p>
+                  <p className="text-sm text-gray-600 mt-2">Planejamento estratégico</p>
+                </Card>
+                <Card className="p-6 border-t-4 border-orange-500 bg-orange-50">
+                  <Key className="w-8 h-8 text-orange-500 mb-2" />
+                  <p className="font-bold">Licenças</p>
+                  <p className="text-sm text-gray-600 mt-2">Gerenciadas com eficiência</p>
+                </Card>
+              </div>
+            </div>
+
+            {/* Contact Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Card className="p-6 bg-blue-600 text-white">
+                <p className="text-2xl font-bold">🌐 Portal de Atendimento</p>
+                <p className="mt-2">Cherwell Service Desk</p>
+                <p className="text-right mt-4">→</p>
+              </Card>
+              <Card className="p-6 bg-green-600 text-white">
+                <p className="text-2xl font-bold">📧 E-mail Geral</p>
+                <p className="mt-2">crm@elgin.com.br</p>
+                <p className="text-right mt-4">✉️</p>
+              </Card>
+            </div>
+          </div>
         )}
       </div>
+
+      {/* Important Note */}
+      {activeTab === 'status' && (
+        <div className="px-8 pb-8">
+          <Card className="p-6 bg-yellow-50 border-l-4 border-yellow-500">
+            <p className="text-lg font-bold text-yellow-800">⚠️ Observação Importante</p>
+            <p className="text-gray-700 mt-2">Verifique regularmente o status das demandas e mantenha a comunicação com a equipe CRM para garantir o cumprimento dos prazos.</p>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
