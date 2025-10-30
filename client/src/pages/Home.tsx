@@ -387,8 +387,8 @@ export default function Home() {
                 onChange={(e) => setSelectedBU(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg"
               >
-                <option>Todas as BUs</option>
-                {uniqueBUs.map((bu: string) => <option key={bu}>{bu}</option>)}
+                <option key="todas">Todas as BUs</option>
+                {uniqueBUs.map((bu: string) => <option key={`bu-${bu}`}>{bu}</option>)}
               </select>
             </div>
 
