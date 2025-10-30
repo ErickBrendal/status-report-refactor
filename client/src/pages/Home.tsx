@@ -408,7 +408,7 @@ export default function Home() {
                   </thead>
                   <tbody>
                     {displayData.map((demanda: any, idx: number) => (
-                      <tr key={idx} className="border-b hover:bg-gray-50">
+                      <tr key={`${demanda.nome}-${demanda.bu}-${idx}`} className="border-b hover:bg-gray-50">
                         <td className="p-3 font-medium">{demanda.nome}</td>
                         <td className="p-3"><span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">{demanda.bu}</span></td>
                         <td className="p-3">{demanda.goLive}</td>
