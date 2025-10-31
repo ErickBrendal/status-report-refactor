@@ -237,8 +237,8 @@ export default function Home() {
     });
 
     return allData.filter(item => {
-      const matchesSearch = item.nome?.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                           item.bu?.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearch = (item.nome && typeof item.nome === 'string' ? item.nome.toLowerCase().includes(searchTerm.toLowerCase()) : false) || 
+                           (item.bu && typeof item.bu === 'string' ? item.bu.toLowerCase().includes(searchTerm.toLowerCase()) : false);
       const matchesBU = selectedBU === 'Todas as BUs' || item.bu === selectedBU;
       return matchesSearch && matchesBU;
     });
