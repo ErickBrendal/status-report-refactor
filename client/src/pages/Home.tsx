@@ -129,7 +129,7 @@ export default function Home() {
 
         jsonData.forEach((row: any) => {
           let faseAtual = String(row['Fase Atual'] || 'Backlog/Sem priorização').trim();
-          const faseAtualLower = faseAtual.toLowerCase();
+          const faseAtualLower = (typeof faseAtual === 'string' ? faseAtual : String(faseAtual)).toLowerCase();
 
           if (faseAtualLower.includes('backlog') || faseAtualLower.includes('sem priorização')) {
             faseAtual = 'Backlog/Sem priorização';
@@ -265,7 +265,7 @@ export default function Home() {
     .flat()
     .filter((item: any) => {
       const goLive = item.goLive || '';
-      return goLive && !goLive.toLowerCase().includes('em planejamento');
+      return goLive && !(typeof goLive === 'string' ? goLive.toLowerCase() : String(goLive).toLowerCase()).includes('em planejamento');
     });
 
   // Group entregas by month
